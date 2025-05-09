@@ -11,7 +11,7 @@ const features = [
   {
     img: '/consultant.png',
     title: 'FREE CAREER CONSULTATION',
-    desc: 'Resume, Interview & Career Help',
+    desc: 'Resume, Interview &amp; Career Help',
   },
   {
     img: '/interview.png',
@@ -26,7 +26,7 @@ const features = [
   {
     img: '/network.png',
     title: 'GLOBAL COMPANY NETWORK',
-    desc: 'Openings from MNCs & Startups',
+    desc: 'Openings from MNCs &amp; Startups',
   },
 ];
 
@@ -34,7 +34,7 @@ const WhyChooseSection = () => {
   return (
     <section className="w-full py-16 px-2 bg-gradient-to-b from-[#0a2e6c] to-[#1e3a8a] flex flex-col items-center">
       <h2 className="text-white text-2xl md:text-3xl font-bold text-center mb-2">Why Choose CRTD?</h2>
-      <p className="text-white text-center mb-10 max-w-2xl">We've designed our platform with freshers in mind, addressing the unique challenges you face.</p>
+      <p className="text-white text-center mb-10 max-w-2xl">We&apos;ve designed our platform with freshers in mind, addressing the unique challenges you face.</p>
       <div className="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center">
         {features.map((f, i) => (
           <div

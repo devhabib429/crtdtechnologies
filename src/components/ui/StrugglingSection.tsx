@@ -3,15 +3,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-const companies = [
-  { src: '/tcs.png', alt: 'TCS' },
-  { src: '/timesinternet.png', alt: 'Times Internet' },
-  { src: '/microsoft.png', alt: 'Microsoft' },
-  { src: '/wyreflow.png', alt: 'Wyreflow' },
-  { src: '/adobe.png', alt: 'Adobe' },
-  { src: '/tcs.png', alt: 'TCS2' },
-];
-
 const features = [
   {
     icon: (
@@ -44,7 +35,7 @@ const features = [
     title: 'Community Driven',
     badge: 'Success Together',
     badgeColor: 'bg-pink-100 text-pink-700',
-    desc: 'Join a community of freshers supporting each other\'s career growth.',
+    desc: 'Join a community of freshers supporting each other&apos;s career growth.',
   },
 ];
 
@@ -78,7 +69,7 @@ const StrugglingSection = () => {
       <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center p-6 md:p-10 gap-8">
         {/* Left: Text */}
         <div className="flex-1 min-w-[280px]">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">Struggling to Land Your First Job? <span className="text-blue-600">You're Not Alone</span></h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">Struggling to Land Your First Job? <span className="text-blue-600">You&apos;re Not Alone</span></h2>
           <p className="text-gray-700 mb-6">Breaking into the professional world can be challenging — countless applications, limited responses, and constant rejections can be disheartening. At CRTD Technologies, we understand the unique obstacles freshers face in their job search.</p>
           <div className="space-y-4 mb-6">
             {features.map((f, i) => (
