@@ -1,4 +1,5 @@
 'use client';
+import { useEffect, useRef, useState } from 'react';
 
 const awards = [
   {
@@ -40,18 +41,60 @@ const awards = [
 
 const impact = [
   {
-    value: '12,000+',
+    value: 12000,
     label: 'Candidates placed',
+    display: '12,000+',
   },
   {
-    value: '1000+',
+    value: 1000,
     label: 'Hiring Companies',
+    display: '1000+',
   },
   {
-    value: '100%',
+    value: 100,
     label: 'Fresher-Specific Openings',
+    display: '100%',
   },
 ];
+
+function useCountUp(to: number, duration = 1200) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<number>(0);
+  useEffect(() => {
+    let start = 0;
+    const step = () => {
+      start += Math.ceil(to / (duration / 16));
+      if (start >= to) {
+        setCount(to);
+        return;
+      }
+      setCount(start);
+      ref.current = window.requestAnimationFrame(step);
+    };
+    ref.current = window.requestAnimationFrame(step);
+    return () => {
+      if (ref.current) {
+        cancelAnimationFrame(ref.current);
+      }
+    };
+  }, [to, duration]);
+  return count;
+}
+
+// Separate component for impact cards
+const ImpactCard = ({ value, label, display }: { value: number; label: string; display: string }) => {
+  const count = useCountUp(value, 1200);
+  return (
+    <div className="flex-1 min-w-[200px] bg-white rounded-xl shadow p-6 border border-gray-200 flex flex-col items-center" style={{borderLeft: '8px solid #0a2e6c'}}>
+      <div className="text-2xl font-bold text-[#0a2e6c] mb-1">
+        {display.includes('%')
+          ? `${count >= value ? display : count + '%'}`
+          : count >= value ? display : count.toLocaleString() + (display.endsWith('+') ? '+' : '')}
+      </div>
+      <div className="text-gray-700 text-center text-sm font-medium">{label}</div>
+    </div>
+  );
+};
 
 const AwardsRecognitionSection = () => (
   <section className="w-full bg-white py-16 px-2 flex flex-col items-center">
@@ -59,16 +102,16 @@ const AwardsRecognitionSection = () => (
       <h2 className="text-xl md:text-2xl font-bold text-center mb-8">Awards &amp; Recognition</h2>
       <div className="w-full flex flex-col gap-0">
         {awards.map((a, i) => (
-          <>
+          <div key={i}>
             {i !== 0 && <div className="w-full h-0.5 bg-[#0a2e6c] opacity-30 my-2" />}
-            <div key={i} className="flex items-start gap-6 w-full py-6">
+            <div className="flex items-start gap-6 w-full py-6">
               <div className="flex-shrink-0">{a.icon}</div>
               <div>
                 <div className="font-semibold text-[#0a2e6c] mb-1">{a.title}</div>
                 <div className="text-gray-700 text-sm mb-1">{a.desc}</div>
               </div>
             </div>
-          </>
+          </div>
         ))}
       </div>
       <div className="w-full border-t border-b border-gray-300 my-10"></div>
@@ -76,11 +119,13 @@ const AwardsRecognitionSection = () => (
       <div className="text-xl md:text-2xl font-bold text-[#0a2e6c] mb-2">Our Impact So Far</div>
       <div className="text-center text-gray-700 mb-8 max-w-2xl">We&apos;re proud of the difference we&apos;ve made in the lives of freshers and the value we&apos;ve added to businesses.</div>
       <div className="w-full flex flex-col md:flex-row gap-6 justify-center items-center">
-        {impact.map((i, idx) => (
-          <div key={idx} className="flex-1 min-w-[200px] bg-white rounded-xl shadow p-6 border border-gray-200 flex flex-col items-center" style={{borderLeft: '8px solid #0a2e6c'}}>
-            <div className="text-2xl font-bold text-[#0a2e6c] mb-1">{i.value}</div>
-            <div className="text-gray-700 text-center text-sm font-medium">{i.label}</div>
-          </div>
+        {impact.map((item, idx) => (
+          <ImpactCard
+            key={idx}
+            value={item.value}
+            label={item.label}
+            display={item.display}
+          />
         ))}
       </div>
     </div>
